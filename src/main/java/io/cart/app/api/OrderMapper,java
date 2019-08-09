@@ -1,0 +1,13 @@
+package io.cart.app.api;
+
+import java.util.Collection;
+import org.mapstruct.Mapper;
+import io.cart.app.entity.OrderEntity;
+import io.cart.app.model.Order;
+
+@Mapper(componentModel = "spring")
+public interface OrderMapper {
+
+  Order orderEntityToOrder(OrderEntity orderDao);
+  Collection<Order> orderEntityListToOrderList(Collection<OrderEntity> orders);
+}

@@ -10,6 +10,11 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+      
+# Note the Broker should be connected as
+# From docker container broker:29092
+# Without any docker container localhost:9092
+# When inside docker container the connection application should join the n/w in this case:  --network="cp-all-in-one_default"
 
   broker:
     image: confluentinc/cp-enterprise-kafka:5.3.0
@@ -24,7 +29,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://broker:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -71,12 +76,3 @@ services:
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
 
-   # Kafka producer
-  producer:
-    image: jatishk/kafka-producer
-    hostname: kp
-    container_name: kp
-    depends_on:
-      - broker
-    ports:
-     - "9030:9030"

@@ -7,8 +7,5 @@ services:
     image: prometheus
     ports:
         - '9090:9090'
-    volumes:
-      - ./prometheus/:/etc/prometheus/
-      - ./prometheus_data:/prometheus
     hostname: prometheus
     container_name: prometheus

@@ -1,0 +1,10 @@
+---
+version: '2'
+services:
+  rp:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    hostname: rp
+    container_name: rp
+ 

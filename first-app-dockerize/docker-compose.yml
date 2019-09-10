@@ -1,0 +1,12 @@
+---
+version: '2'
+services:
+  first-app:
+    build: ./first-app
+    image: first-app:latest
+    depends_on:
+      - parent-app-service-docker-compose
+    ports:
+      - "11111:11111"
+    hostname: first-app
+    container_name: first-app

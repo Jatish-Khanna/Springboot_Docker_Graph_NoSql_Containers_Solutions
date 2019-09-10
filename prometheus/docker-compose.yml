@@ -1,0 +1,14 @@
+---
+version: '2'
+services:
+  prometheus:
+    # Directory where docker file is present, and a custom prometheus will be build
+    build: ./prometheus
+    image: prometheus
+    ports:
+        - '9090:9090'
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - ./prometheus_data:/prometheus
+    hostname: prometheus
+    container_name: prometheus

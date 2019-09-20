@@ -38,7 +38,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('j1','$2a$10$zNbv0y/Hpb7HJnnO2xYvuuXJ/fvyFNYkROgAwQTjHdpuBQYKXmAtm','$2a$10$12O6wWF2i8VTpusXfLLb/OcndBmzM4UH2BPgE/ledgl46lpTaLbiq','jk@infy.com',1),('jatish','jatish','jatish','jatish@infy.com',1),('jk','$2a$10$sRz0NQuF61RI.tUsKZPz1.raPyhRfblCRALwuEbIHwgauAMHXpOP6','$2a$10$ZPWb2kj2X227m1Mv/PtOU.9K0XOWivitcIJcYBZ..8XRGfxkt8GZC','jk@infy.com',1);
+INSERT INTO `account` VALUES ('j1','$2a$10$zNbv0y/Hpb7HJnnO2xYvuuXJ/fvyFNYkROgAwQTjHdpuBQYKXmAtm','$2a$10$12O6wWF2i8VTpusXfLLb/OcndBmzM4UH2BPgE/ledgl46lpTaLbiq','jk@agi.io',1),('jatish','jatish','jatish','jatish@infy.com',1),('jk','$2a$10$sRz0NQuF61RI.tUsKZPz1.raPyhRfblCRALwuEbIHwgauAMHXpOP6','$2a$10$ZPWb2kj2X227m1Mv/PtOU.9K0XOWivitcIJcYBZ..8XRGfxkt8GZC','jk@infy.com',1);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 

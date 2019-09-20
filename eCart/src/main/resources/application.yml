@@ -1,6 +1,6 @@
 spring:
   application:
-    name: InfyMart
+    name: SimpleMart
   jpa:
     hibernate:
       ddl-auto: update

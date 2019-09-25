@@ -182,17 +182,10 @@ services:
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
       
-  rest:
-    image: jatishk/resttemplate
-    depends_on:
-      - broker    
-    ports:
-     - 9032:9031
-
    # Kafka producer
   producer:
-    image: jatishk/kafka-producer
+    image: <some-image>
     depends_on:
       - broker
     ports:
-     - 9030:8081
+     - <hostport:applicationport>

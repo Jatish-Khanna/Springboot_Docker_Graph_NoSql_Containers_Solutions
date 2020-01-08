@@ -1,0 +1,108 @@
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>EBI - Preferences</title>
+<meta name="author" content="@Jatish_Khanna" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+#attributeStats {
+	display: inline-block;
+	box-shadow: 0px 5px #12ff53;
+	box-sizing: border-box;
+	margin: 5px;
+	position: sticky;
+	font-size: 1.3em;
+}
+
+table {
+	width: 100%;
+}
+
+table td, table th {
+	border: 1px solid grey;
+}
+
+table th {
+	background: #eee;
+}
+
+.pagination-div {
+	user-select: none;
+}
+
+.pagination-div span {
+	border-radius: 3px;
+	border: 1px solid #999;
+	padding: 5px;
+	margin: 10px 0px 0px 10px;
+	display: inline-block
+}
+
+span.selected {
+	background: #ccf;
+}
+</style>
+<script>
+  var RELOAD_DURATION = 3300;
+  var page = [[${page}]];
+  var limit = [[${limit}]];
+  function localScore() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+    	  console.log(page);
+    	  console.log(limit);
+      }
+    };
+
+    xhttp.open("GET", "/api/v1/myEndPoint?page=" +page+"&limit="+limit, true);
+    xhttp.send();
+  }
+
+  setInterval(localScore, RELOAD_DURATION);
+</script>
+
+</head>
+<body>
+	<h1>End point header</h1>
+	<div style="height: 50px"></div>
+	<div id="content"
+		th:if="${restList != null and not #sets.isEmpty(restList)}">
+		<div id="attributeStats">
+			<table>
+				<tr>
+					<th>RestList ID</th>
+					<th>Value</th>
+				</tr>
+				<tr th:each="restItem : ${restList}">
+					<td th:text="${restItem.id}"></td>
+					<td th:text="${restItem.value}"></td>
+				</tr>
+			</table>
+		</div>
+		<div style="height: 50px"></div>
+		<div id="attributeStats">
+			<span th:if="${page gt 0}"> <a
+				th:href="@{/api/v1/myEndPoint?page={nextPage}&limit={limit}(nextPage=${page - 1},limit=${limit})}">Prev</a>
+			</span>
+		</div>
+
+		<div id="attributeStats">
+			<span th:if="${page ge 0}"> <a
+				th:href="@{/api/v1/myEndPoint?page={nextPage}&limit={limit}(nextPage=${page + 1},limit=${limit})}">Next</a>
+			</span>
+		</div>
+	</div>
+	<div style="height: 50px"></div>
+	<div th:if="${restList == null or #sets.isEmpty(restList)}">
+		<h2>Oops! No Items found</h2>
+		<div id="attributeStats">
+			<span th:if="${page ge 0}"> <a
+				th:href="@{/api/v1/restList?page=0&limit=10}">Take me to first page</a>
+			</span>
+		</div>
+	</div>
+</body>
+</html>

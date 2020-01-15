@@ -1,0 +1,19 @@
+
+  
+type AuthorEntity {
+    id: ID!
+    name: String!
+    age: Long!
+    books: [BookEntity]!
+}
+
+
+
+type Query {
+    getAuthorById(id: ID!): AuthorEntity!
+    getAllAuthors: [AuthorEntity]!
+}
+
+type Mutation {
+    saveAuthor(name: String!, age: Int!, books: [BookInput]) : AuthorEntity!
+}

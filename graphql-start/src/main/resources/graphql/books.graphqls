@@ -1,0 +1,16 @@
+
+  
+type BookEntity {
+    id: ID!
+    name: String!
+    authorEntity: AuthorEntity!
+}
+
+input BookInput {
+    name: String!
+}
+
+extend type Query {
+    getBookById(id: ID!): BookEntity!
+    getAllBooks: [BookEntity]!
+}

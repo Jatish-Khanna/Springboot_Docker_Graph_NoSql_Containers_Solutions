@@ -3,6 +3,12 @@ package com.example.startegysort.sorting.utils;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 
+ * @author Jatish_Khanna
+ *
+ */
+
 public interface QuickSort {
 
   public static void quickSort(List<Integer> list, int left, int right) {

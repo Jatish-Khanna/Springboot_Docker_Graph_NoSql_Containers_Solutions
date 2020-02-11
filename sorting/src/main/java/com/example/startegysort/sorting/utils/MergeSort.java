@@ -1,5 +1,11 @@
 package com.example.startegysort.sorting.utils;
 
+/**
+ * 
+ * @author Jatish_Khanna
+ *
+ */
+
 public interface MergeSort {
 
   public static void mergeSort(Integer[] dataArray, int start, int end) {

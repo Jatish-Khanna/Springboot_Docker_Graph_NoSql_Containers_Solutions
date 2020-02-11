@@ -3,6 +3,11 @@ package com.example.startegysort.sorting.web.rest;
 import org.springframework.http.ResponseEntity;
 import com.example.startegysort.sorting.model.ErrorResponse;
 
+/**
+ * @author Jatish.Khanna
+ *
+ */
+
 public abstract class BaseResource {
 
   protected <T> ResponseEntity<T> toResponse(T body) {

@@ -1,0 +1,82 @@
+public boolean sendInvite(CustomDetails details) {
+
+		CustomCalendar calendar = details.getCalendar();
+		MimeMessage message = javaMailSender.createMimeMessage();
+		UidGenerator ug = new RandomUidGenerator();
+		Uid randomID = ug.generateUid();
+		try {
+        
+			message.setFrom(new InternetAddress(fromEmailAddress));
+			List<InternetAddress> addresses = new ArrayList<InternetAddress>();
+			InternetAddress[] collected = new InternetAddress[calendar.getAttendees().size()];
+			
+			for (int index = 0; index < calendar.getAttendees().size(); index++) {
+				collected[index] = new InternetAddress(attendee.getEmailAddr()));
+			}
+			
+			
+			message.setRecipients(Message.RecipientType.TO, collected);
+			message.setSubject(calendar.getSubject());
+			
+			TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+			TimeZone timezone = registry.getTimeZone(calendar.getTimezone());
+			VTimeZone tz = timezone.getVTimeZone();
+
+			VEvent meeting = new VEvent(new DateTime(calendar.getStartDate()), new DateTime(calendar.getEndDate()),
+					calendar.getEventTitle());
+			meeting.getProperties().add(tz.getTimeZoneId());
+			
+
+			for (Participant p : calendar.getAttendees()) {
+				net.fortuna.ical4j.model.property.Attendee person = new Attendee(URI.create(p.getEmailAddr()));
+				person.getParameters().add(Role.REQ_PARTICIPANT);
+				meeting.getProperties().add(person);
+			}
+			meeting.getProperties().add(Priority.MEDIUM);
+			meeting.getProperties().add(Clazz.PUBLIC);
+			meeting.getProperties().add(new Location(calendar.getMeetingLocation()));
+			meeting.getProperties().add(new Organizer(URI.create(calendar.getRsvpRecipient())));
+      
+      // Set the status to cancelled
+      // Make sure randomID has the same value which was sent as a part of email headers
+      meeting.getProperties().add(randomID);
+      meeting.getProperties().add(new Status(Status.VEVENT_CANCELLED.getValue()));
+      //
+
+			net.fortuna.ical4j.model.Calendar icsCalendar = new net.fortuna.ical4j.model.Calendar();
+			icsCalendar.getProperties().add(new ProdId("-//Microsoft Corporation//Outlook 13.0 MIMEDIR//EN"));
+			icsCalendar.getProperties().add(CalScale.GREGORIAN);
+			icsCalendar.getProperties().add(Method.REQUEST);
+			icsCalendar.getComponents().add(meeting);
+
+			MimeMultipart multi = new MimeMultipart("mixed");
+			MimeBodyPart emailBodyPart = new MimeBodyPart();
+			emailBodyPart.setText(calendar.getEmailBody(), null, "html");
+			emailBodyPart.setDisposition(BodyPart.INLINE);
+
+			
+			MimeBodyPart calendarBodyPart = new MimeBodyPart();
+			calendarBodyPart.setHeader("Content-Class", "urn:content-classes:calendarmessage");
+			calendarBodyPart.setHeader("Content-ID", "calendar_message");
+			calendarBodyPart.setDisposition(BodyPart.INLINE);
+			
+			
+			calendarBodyPart.setDataHandler(
+					new DataHandler(new ByteArrayDataSource(icsCalendar.toString(), "text/calendar;method=REQUEST")));
+
+			multi.addBodyPart(calendarBodyPart, 0);
+			multi.addBodyPart(emailBodyPart, 0);
+			message.setDisposition(BodyPart.INLINE);
+			message.setContent(multi);
+
+		} catch (Exception ex) {
+			log.error("Exception when creating message");
+		}
+		try {
+			javaMailSender.send(message);
+			return true;
+		} catch (MailException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}

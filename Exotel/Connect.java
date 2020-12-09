@@ -18,6 +18,5 @@
     Object response = restTemplate.exchange(
         "https://twilix.exotel.in/v1/Accounts/infoys1/Calls/connect?From=xxxx&To=xxxx&Url=http://my.exotel.in/exoml/start/<APP ID>",
         HttpMethod.POST, request, Object.class).getBody();
-    
     return response;
   }

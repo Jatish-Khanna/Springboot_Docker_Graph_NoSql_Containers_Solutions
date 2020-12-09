@@ -1,4 +1,9 @@
-  @PostMapping(value = "/call", produces = MediaType.APPLICATION_JSON_VALUE)
+
+/*
+  API details - https://support.exotel.com/support/solutions/articles/48278-outbound-call-to-connect-a-customer-to-an-app
+*/
+
+@PostMapping(value = "/call", produces = MediaType.APPLICATION_JSON_VALUE)
   public Object connectCall() {
     log.info("request to call");
 

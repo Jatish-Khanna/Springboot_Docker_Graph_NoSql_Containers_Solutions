@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var chipElement = document.getElementById('chip');
+            var instances = M.Chips.init(chipElement);
+        });
+
+    </script>
+    <style>
+        .chips {
+            width: 90%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <p>List of things:</p>
+    <ul id="things">
+        <li>Loading...</li>
+    </ul>
+    <div class="row">
+        <!-- Default with no input (automatically generated)  -->
+
+        <div class="chips" id="chip"></div>
+
+    </div>
+</body>
+
+</html>
